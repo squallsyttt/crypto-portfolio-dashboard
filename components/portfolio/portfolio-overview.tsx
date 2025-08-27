@@ -22,7 +22,7 @@ import {
 import { cn } from '@/lib/utils'
 
 export function PortfolioOverview() {
-  const { portfolio, portfolioValue, portfolioChange } = usePortfolio()
+  const { portfolio, portfolioValue } = usePortfolio()
   const { data: marketData } = useMarketData()
   const { getFormattedPrice } = useSettingsStore()
 
@@ -185,24 +185,52 @@ export function PortfolioOverview() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">
-                    {portfolioStats.bestPerformer.coin.name}
-                  </p>
-                  <p className="text-sm text-muted-foreground uppercase">
-                    {portfolioStats.bestPerformer.coin.symbol}
-                  </p>
+              {portfolioStats.bestPerformer ? (
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">
+                      {
+                        (
+                          portfolioStats.bestPerformer as {
+                            coin: { name: string }
+                          }
+                        )?.coin?.name
+                      }
+                    </p>
+                    <p className="text-sm text-muted-foreground uppercase">
+                      {
+                        (
+                          portfolioStats.bestPerformer as {
+                            coin: { symbol: string }
+                          }
+                        )?.coin?.symbol
+                      }
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-green-600">
+                      +
+                      {(
+                        portfolioStats.bestPerformer as {
+                          gainLossPercent: number
+                        }
+                      )?.gainLossPercent?.toFixed(2)}
+                      %
+                    </p>
+                    <p className="text-sm text-green-600">
+                      +
+                      {getFormattedPrice(
+                        (portfolioStats.bestPerformer as { gainLoss: number })
+                          ?.gainLoss || 0
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-lg font-bold text-green-600">
-                    +{portfolioStats.bestPerformer.gainLossPercent.toFixed(2)}%
-                  </p>
-                  <p className="text-sm text-green-600">
-                    +{getFormattedPrice(portfolioStats.bestPerformer.gainLoss)}
-                  </p>
-                </div>
-              </div>
+              ) : (
+                <p className="text-center text-muted-foreground py-4">
+                  暂无数据
+                </p>
+              )}
             </CardContent>
           </Card>
 
@@ -214,24 +242,50 @@ export function PortfolioOverview() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">
-                    {portfolioStats.worstPerformer.coin.name}
-                  </p>
-                  <p className="text-sm text-muted-foreground uppercase">
-                    {portfolioStats.worstPerformer.coin.symbol}
-                  </p>
+              {portfolioStats.worstPerformer ? (
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">
+                      {
+                        (
+                          portfolioStats.worstPerformer as {
+                            coin: { name: string }
+                          }
+                        )?.coin?.name
+                      }
+                    </p>
+                    <p className="text-sm text-muted-foreground uppercase">
+                      {
+                        (
+                          portfolioStats.worstPerformer as {
+                            coin: { symbol: string }
+                          }
+                        )?.coin?.symbol
+                      }
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-red-600">
+                      {(
+                        portfolioStats.worstPerformer as {
+                          gainLossPercent: number
+                        }
+                      )?.gainLossPercent?.toFixed(2)}
+                      %
+                    </p>
+                    <p className="text-sm text-red-600">
+                      {getFormattedPrice(
+                        (portfolioStats.worstPerformer as { gainLoss: number })
+                          ?.gainLoss || 0
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-lg font-bold text-red-600">
-                    {portfolioStats.worstPerformer.gainLossPercent.toFixed(2)}%
-                  </p>
-                  <p className="text-sm text-red-600">
-                    {getFormattedPrice(portfolioStats.worstPerformer.gainLoss)}
-                  </p>
-                </div>
-              </div>
+              ) : (
+                <p className="text-center text-muted-foreground py-4">
+                  暂无数据
+                </p>
+              )}
             </CardContent>
           </Card>
         </GridSection>

@@ -73,13 +73,23 @@ export function MarketCapPie({ className }: MarketCapPieProps) {
     }))
   }, [data, showTop])
 
+  // 定义图表数据类型
+  interface ChartDataItem {
+    name: string
+    symbol: string
+    value: number
+    percentage: number
+    color: string
+    priceChange: number
+  }
+
   // 自定义Tooltip
   const CustomTooltip = ({
     active,
     payload,
   }: {
     active?: boolean
-    payload?: Array<{ payload: unknown }>
+    payload?: Array<{ payload: ChartDataItem }>
   }) => {
     if (active && payload && payload.length && payload[0]?.payload) {
       const data = payload[0].payload
@@ -131,7 +141,7 @@ export function MarketCapPie({ className }: MarketCapPieProps) {
   const CustomLegend = ({
     payload,
   }: {
-    payload?: Array<{ payload: unknown; color: string }>
+    payload?: Array<{ payload: ChartDataItem; color: string }>
   }) => {
     if (!payload || !Array.isArray(payload)) return null
 
@@ -152,9 +162,9 @@ export function MarketCapPie({ className }: MarketCapPieProps) {
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: entry.color || '#ccc' }}
               />
-              <span>{entry.payload?.symbol || ''}</span>
+              <span>{entry.payload.symbol || ''}</span>
               <span className="text-muted-foreground">
-                {entry.payload?.percentage
+                {entry.payload.percentage
                   ? entry.payload.percentage.toFixed(1)
                   : '0.0'}
                 %

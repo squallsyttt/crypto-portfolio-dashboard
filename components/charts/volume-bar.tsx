@@ -27,6 +27,17 @@ export function VolumeBar({ className, maxItems = 15 }: VolumeBarProps) {
   const { data, isLoading } = useMarketData()
   const { getFormattedPrice } = useSettingsStore()
 
+  // 定义图表数据类型
+  interface ChartDataItem {
+    name: string
+    symbol: string
+    volume: number
+    marketCap: number
+    priceChange: number
+    volumeRatio: number
+    color: string
+  }
+
   // 处理图表数据
   const chartData = useMemo(() => {
     if (!data || data.length === 0) return []
@@ -61,7 +72,7 @@ export function VolumeBar({ className, maxItems = 15 }: VolumeBarProps) {
     payload,
   }: {
     active?: boolean
-    payload?: Array<{ payload: unknown }>
+    payload?: Array<{ payload: ChartDataItem }>
   }) => {
     if (active && payload && payload.length && payload[0]?.payload) {
       const data = payload[0].payload

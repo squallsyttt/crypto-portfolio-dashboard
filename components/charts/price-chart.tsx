@@ -49,11 +49,11 @@ export function PriceChart({
   const [isLoading, setIsLoading] = useState(true)
   const [chartType, setChartType] = useState<'line' | 'area'>('line')
 
-  const { display, getFormattedPrice } = useSettingsStore()
+  const { getFormattedPrice } = useSettingsStore()
 
   const isPositive = change24h >= 0
   const chartColor = isPositive ? '#22c55e' : '#ef4444'
-  const gradientColor = isPositive ? '#22c55e20' : '#ef444420'
+  // const gradientColor = isPositive ? '#22c55e20' : '#ef444420'
 
   // 生成图表数据
   useEffect(() => {
@@ -74,6 +74,13 @@ export function PriceChart({
     generateChartData()
   }, [coinId, timeRange])
 
+  // 定义图表数据类型
+  interface ChartDataItem {
+    timestamp: number
+    price: number
+    volume?: number
+  }
+
   // 自定义Tooltip
   const CustomTooltip = ({
     active,
@@ -81,7 +88,7 @@ export function PriceChart({
     label,
   }: {
     active?: boolean
-    payload?: Array<{ payload: unknown }>
+    payload?: Array<{ payload: ChartDataItem }>
     label?: string
   }) => {
     if (active && payload && payload.length) {
@@ -89,7 +96,7 @@ export function PriceChart({
       return (
         <div className="bg-background border rounded-lg shadow-lg p-3">
           <p className="text-sm text-muted-foreground mb-1">
-            {new Date(label).toLocaleDateString('zh-CN', {
+            {new Date(label || '').toLocaleDateString('zh-CN', {
               month: 'short',
               day: 'numeric',
               hour: '2-digit',

@@ -224,10 +224,10 @@ class MockDataGenerator {
       case '7D':
         hoursBack = 24 * 7
         break
-      case '1M':
+      case '30D':
         hoursBack = 24 * 30
         break
-      case '3M':
+      case '90D':
         hoursBack = 24 * 90
         break
       case '1Y':

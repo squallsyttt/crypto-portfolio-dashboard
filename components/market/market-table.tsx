@@ -21,7 +21,7 @@ import {
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
-  TrendingUp,
+  // TrendingUp,
   BarChart3,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -37,7 +37,7 @@ type SortField =
   | 'name'
   | 'current_price'
   | 'market_cap'
-  | 'total_volume_24h'
+  | 'total_volume'
   | 'price_change_percentage_24h'
 type SortDirection = 'asc' | 'desc'
 
@@ -47,8 +47,7 @@ export function MarketTable({
   className,
 }: MarketTableProps) {
   const { data, isLoading } = useMarketData()
-  const { sortBy, sortDirection, setSortBy, setSortDirection } =
-    useMarketStore()
+  const { setSortBy, setSortDirection } = useMarketStore()
   const { display, getFormattedPrice } = useSettingsStore()
 
   const [currentSortField, setCurrentSortField] =
@@ -104,9 +103,9 @@ export function MarketTable({
           aValue = a.market_cap
           bValue = b.market_cap
           break
-        case 'total_volume_24h':
-          aValue = a.total_volume_24h
-          bValue = b.total_volume_24h
+        case 'total_volume':
+          aValue = a.total_volume
+          bValue = b.total_volume
           break
         case 'price_change_percentage_24h':
           aValue = a.price_change_percentage_24h
@@ -265,11 +264,11 @@ export function MarketTable({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => handleSort('total_volume_24h')}
+                onClick={() => handleSort('total_volume')}
                 className="h-8 px-2 font-medium"
               >
                 24h交易量
-                <SortIcon field="total_volume_24h" />
+                <SortIcon field="total_volume" />
               </Button>
             </TableHead>
 
@@ -326,8 +325,7 @@ export function MarketTable({
               </TableCell>
 
               <TableCell className="text-right text-muted-foreground">
-                {display.show24hVolume &&
-                  getFormattedPrice(coin.total_volume_24h)}
+                {display.show24hVolume && getFormattedPrice(coin.total_volume)}
               </TableCell>
 
               <TableCell onClick={(e) => e.stopPropagation()}>

@@ -153,7 +153,7 @@ export interface AppError {
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
 
 // 时间范围选项
-export type TimeRange = '1H' | '1D' | '7D' | '1M' | '3M' | '1Y' | 'ALL'
+export type TimeRange = '1H' | '1D' | '7D' | '30D' | '90D' | '1Y' | 'ALL'
 
 // 排序选项
 export type SortOption = {
