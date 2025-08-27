@@ -24,7 +24,7 @@ export function useMarketData() {
   } = useMarketStore()
 
   const { display } = useSettingsStore()
-  const intervalRef = useRef<NodeJS.Timeout>()
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   // 初始化数据
   const initializeData = useCallback(() => {

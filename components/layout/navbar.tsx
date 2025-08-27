@@ -3,19 +3,9 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import {
-  Bell,
-  Search,
-  Settings,
-  User,
-  Menu,
-  TrendingUp,
-  Activity,
-} from 'lucide-react'
+import { Settings, Menu, TrendingUp, Activity } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { SearchDialog } from './search-dialog'
 import { NotificationDropdown } from './notification-dropdown'

@@ -139,7 +139,6 @@ export function PortfolioOverview() {
             positive: portfolioStats.totalGainLoss >= 0,
           }}
           icon={DollarSign}
-          trend={portfolioStats.totalGainLoss >= 0 ? 'up' : 'down'}
         />
 
         <StatCard
@@ -158,7 +157,6 @@ export function PortfolioOverview() {
             positive: portfolioStats.totalGainLoss >= 0,
           }}
           icon={portfolioStats.totalGainLoss >= 0 ? TrendingUp : TrendingDown}
-          trend={portfolioStats.totalGainLoss >= 0 ? 'up' : 'down'}
         />
 
         <StatCard

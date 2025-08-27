@@ -18,7 +18,6 @@ interface StatCardProps {
   description?: string
   loading?: boolean
   className?: string
-  trend?: 'up' | 'down' | 'neutral'
   badge?: {
     text: string
     variant?: 'default' | 'secondary' | 'destructive' | 'outline'
@@ -33,7 +32,6 @@ export function StatCard({
   description,
   loading = false,
   className,
-  trend = 'neutral',
   badge,
 }: StatCardProps) {
   if (loading) {
@@ -48,12 +46,6 @@ export function StatCard({
         </CardContent>
       </Card>
     )
-  }
-
-  const trendColors = {
-    up: 'text-green-600',
-    down: 'text-red-600',
-    neutral: 'text-muted-foreground',
   }
 
   return (

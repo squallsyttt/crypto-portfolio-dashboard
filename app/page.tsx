@@ -86,7 +86,6 @@ export default function Home() {
             description="市场占比"
             icon={Bitcoin}
             loading={statsLoading}
-            trend="neutral"
           />
 
           <StatCard
